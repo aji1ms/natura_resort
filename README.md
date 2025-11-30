@@ -147,35 +147,35 @@ npm install
 ### Authentication
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| POST | `/api/auth/signup` | User registration |
+| POST | `/api/auth/register` | User registration |
 | POST | `/api/auth/login` | User login |
 | POST | `/api/auth/logout` | User logout |
-| GET | `/api/auth/verify` | Verify JWT token |
+| GET | `/api/auth/me` | Get User Details |
 
 ### Offerings
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | GET | `/api/auth/offering` | Get all offerings |
 | GET | `/api/auth/offering/:id` | Get single offering |
-| POST | `/api/admin/offering` | Create offering (Admin) |
-| PUT | `/api/admin/offering/:id` | Update offering (Admin) |
-| DELETE | `/api/admin/offering/:id` | Delete offering (Admin) |
+| POST | `/api/admin/offering/add` | Create offering (Admin) |
+| POST | `/api/admin/offering/edit/:id` | Update offering (Admin) |
+| DELETE | `/api/admin/offering/delete/:id` | Delete offering (Admin) |
 
 ### Categories
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | GET | `/api/auth/category` | Get all categories |
-| POST | `/api/admin/category` | Create category (Admin) |
-| PUT | `/api/admin/category/:id` | Update category (Admin) |
-| DELETE | `/api/admin/category/:id` | Delete category (Admin) |
+| POST | `/api/admin/category/add` | Create category (Admin) |
+| POST | `/api/admin/category/edit/:id` | Update category (Admin) |
+| DELETE | `/api/admin/category/delete/:id` | Delete category (Admin) |
 
 ### Bookings
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| POST | `/api/auth/booking` | Create booking |
-| GET | `/api/auth/bookings` | Get user bookings |
-| GET | `/api/admin/bookings` | Get all bookings (Admin) |
-| PUT | `/api/admin/booking/:id/status` | Update booking status (Admin) |
+| POST | `/api/auth/booking/create` | Create booking |
+| GET | `/api/auth/booking` | Get user bookings |
+| GET | `/api/admin/booking` | Get all bookings (Admin) |
+| PUT | `/api/admin/booking/edit/:id` | Update booking status (Admin) |
 
 ### Users (Admin)
 | Method | Endpoint | Description |
@@ -276,7 +276,6 @@ npm install
 - ✅ **Database modeling** for complex booking systems
 - ✅ **State management** using Redux Toolkit
 - ✅ **Authentication & Authorization** using JWT and cookies
-- ✅ **File upload handling** with Multer
 - ✅ **TypeScript** implementation for type safety
 - ✅ **Responsive UI design** with Tailwind CSS
 - ✅ **Component reusability** and clean code practices
@@ -288,17 +287,9 @@ npm install
 ## 🚀 Deployment
 
 ### Frontend (Vercel)
-```bash
-cd client
-npm run build
-# Deploy to Vercel
-```
 
 ### Backend (Render/Railway)
-```bash
-cd server
-npm run build
-# Deploy to Render/Railway
+
 ```
 
 ### Environment Variables for Production
@@ -309,34 +300,13 @@ Update `.env` files with production URLs and credentials.
 ## 🌐 Live Demo
 
 **🔗 Frontend:** [https://natura-resort.vercel.app](https://natura-resort.vercel.app)  
-**🔗 Backend API:** [https://natura-resort-api.onrender.com](https://natura-resort-api.onrender.com)
+**🔗 Backend API:** [https://natura-resort.onrender.com](https://natura-resort.onrender.com)
 
 ### Demo Credentials
-**User Account:**
-- Email: `user@example.com`
-- Password: `password123`
 
 **Admin Account:**
-- Email: `admin@example.com`
-- Password: `admin123`
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
----
-
-## 📝 License
-
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+- Email: `ajmal@gmail.com`
+- Password: `ajmal@123`
 
 ---
 
@@ -346,30 +316,10 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 Full Stack Developer
 
 📍 Ernakulam, Kerala, India  
-📧 Email: ajiismail@example.com  
+📧 Email: aji1ms.dev@gmail.com  
 🔗 GitHub: [@aji1ms](https://github.com/aji1ms)  
-💼 LinkedIn: [Ajims Ismail](https://linkedin.com/in/ajims-ismail)  
-🌐 Portfolio: [ajims.dev](https://ajims.dev)
-
----
-
-## 🙏 Acknowledgments
-
-- React.js Documentation
-- MongoDB University
-- Tailwind CSS
-- Lucide Icons
-- Unsplash for demo images
-- The amazing open-source community
-
----
-
-## 📊 Project Stats
-
-![GitHub last commit](https://img.shields.io/github/last-commit/aji1ms/natura-resort)
-![GitHub issues](https://img.shields.io/github/issues/aji1ms/natura-resort)
-![GitHub stars](https://img.shields.io/github/stars/aji1ms/natura-resort)
-![GitHub forks](https://img.shields.io/github/forks/aji1ms/natura-resort)
+💼 LinkedIn: [Ajims Ismail](https://www.linkedin.com/in/ajims-ismail)  
+🌐 Portfolio: [ajims.dev](https://ajims.info)
 
 ---
 
