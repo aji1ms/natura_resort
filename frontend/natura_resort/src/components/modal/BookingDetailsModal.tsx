@@ -100,18 +100,18 @@ const BookingDetailsModal: React.FC<BookingDetailsModalProps> = ({ booking, onCl
                                     <div className="space-y-3">
                                         <div className="flex justify-between">
                                             <span className="text-gray-600">Booking ID:</span>
-                                            <span className="font-medium">#{booking._id.slice(-8)}</span>
+                                            <span className="font-medium">#{booking?._id.slice(-8)}</span>
                                         </div>
                                         <div className="flex justify-between">
                                             <span className="text-gray-600">Status:</span>
                                             <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusBadgeClass(booking.status)}`}>
-                                                {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
+                                                {booking?.status.charAt(0).toUpperCase() + booking?.status.slice(1)}
                                             </span>
                                         </div>
                                         <div className="flex justify-between">
                                             <span className="text-gray-600">Created:</span>
                                             <span className="font-medium">
-                                                {formatDate(booking.createdAt)}
+                                                {formatDate(booking?.createdAt)}
                                             </span>
                                         </div>
                                     </div>
@@ -122,19 +122,19 @@ const BookingDetailsModal: React.FC<BookingDetailsModalProps> = ({ booking, onCl
                                     <div className="space-y-3">
                                         <div className="flex justify-between">
                                             <span className="text-gray-600">Name:</span>
-                                            <span className="font-medium">{booking.name}</span>
+                                            <span className="font-medium">{booking?.name}</span>
                                         </div>
                                         <div className="flex justify-between">
                                             <span className="text-gray-600">Email:</span>
-                                            <span className="font-medium">{booking.email}</span>
+                                            <span className="font-medium">{booking?.email}</span>
                                         </div>
                                         <div className="flex justify-between">
                                             <span className="text-gray-600">Phone:</span>
-                                            <span className="font-medium">{booking.phone}</span>
+                                            <span className="font-medium">{booking?.phone}</span>
                                         </div>
                                         <div className="flex justify-between">
                                             <span className="text-gray-600">Guests:</span>
-                                            <span className="font-medium">{booking.guests}</span>
+                                            <span className="font-medium">{booking?.guests}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -148,19 +148,19 @@ const BookingDetailsModal: React.FC<BookingDetailsModalProps> = ({ booking, onCl
                                         <div className="flex justify-between">
                                             <span className="text-gray-600">Check-in:</span>
                                             <span className="font-medium">
-                                                {formatDate(booking.checkIn)}
+                                                {formatDate(booking?.checkIn)}
                                             </span>
                                         </div>
                                         <div className="flex justify-between">
                                             <span className="text-gray-600">Check-out:</span>
                                             <span className="font-medium">
-                                                {formatDate(booking.checkOut)}
+                                                {formatDate(booking?.checkOut)}
                                             </span>
                                         </div>
                                         <div className="flex justify-between">
                                             <span className="text-gray-600">Duration:</span>
                                             <span className="font-medium">
-                                                {calculateNights(booking.checkIn, booking.checkOut)} nights
+                                                {calculateNights(booking?.checkIn, booking?.checkOut)} nights
                                             </span>
                                         </div>
                                     </div>
@@ -171,16 +171,16 @@ const BookingDetailsModal: React.FC<BookingDetailsModalProps> = ({ booking, onCl
                                     <div className="space-y-3">
                                         <div className="flex justify-between">
                                             <span className="text-gray-600">Price per guest/night:</span>
-                                            <span className="font-medium">${booking.offeringId.price}</span>
+                                            <span className="font-medium">${booking?.offeringId?.price}</span>
                                         </div>
                                         <div className="flex justify-between">
                                             <span className="text-gray-600">Total:</span>
                                             <span className="font-medium text-lg text-green-600">
                                                 ${calculateTotal(
-                                                    booking.offeringId.price,
-                                                    booking.guests,
-                                                    booking.checkIn,
-                                                    booking.checkOut
+                                                    booking?.offeringId?.price,
+                                                    booking?.guests,
+                                                    booking?.checkIn,
+                                                    booking?.checkOut
                                                 ).toFixed(2)}
                                             </span>
                                         </div>
@@ -194,23 +194,23 @@ const BookingDetailsModal: React.FC<BookingDetailsModalProps> = ({ booking, onCl
                                 <div className="bg-gray-50 rounded-lg p-4">
                                     <div className="flex items-start space-x-4">
                                         <img
-                                            src={booking.offeringId.image}
-                                            alt={booking.offeringId.name}
+                                            src={booking?.offeringId?.image}
+                                            alt={booking?.offeringId?.name}
                                             className="w-20 h-20 object-cover rounded-lg"
                                         />
                                         <div className="flex-1">
-                                            <h4 className="font-semibold text-gray-900">{booking.offeringId.name}</h4>
-                                            <p className="text-gray-600 text-sm mt-1">{booking.offeringId.description}</p>
+                                            <h4 className="font-semibold text-gray-900">{booking?.offeringId?.name}</h4>
+                                            <p className="text-gray-600 text-sm mt-1">{booking?.offeringId?.description}</p>
                                             <div className="flex items-center mt-2">
                                                 <span className="text-gray-500 text-sm">
-                                                    Category: {booking.offeringId.category?.name}
+                                                    Category: {booking?.offeringId?.category?.name}
                                                 </span>
                                             </div>
-                                            {booking.offeringId.amenities && booking.offeringId.amenities.length > 0 && (
+                                            {booking?.offeringId?.amenities && booking?.offeringId?.amenities.length > 0 && (
                                                 <div className="mt-2">
                                                     <span className="text-gray-500 text-sm">Amenities: </span>
                                                     <div className="flex flex-wrap gap-1 mt-1">
-                                                        {booking.offeringId.amenities.map((amenity, index) => (
+                                                        {booking?.offeringId?.amenities.map((amenity, index) => (
                                                             <span
                                                                 key={index}
                                                                 className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded"
@@ -227,11 +227,11 @@ const BookingDetailsModal: React.FC<BookingDetailsModalProps> = ({ booking, onCl
                             </div>
 
                             {/* Special Request */}
-                            {booking.specialRequest && (
+                            {booking?.specialRequest && (
                                 <div>
                                     <h3 className="text-lg font-semibold text-gray-900 mb-4">Special Request</h3>
                                     <div className="bg-gray-50 rounded-lg p-4">
-                                        <p className="text-gray-700">{booking.specialRequest}</p>
+                                        <p className="text-gray-700">{booking?.specialRequest}</p>
                                     </div>
                                 </div>
                             )}

@@ -115,8 +115,8 @@ const AdminOffering: React.FC = () => {
                         >
                             <option value="all">All Categories</option>
                             {categories.map((cat) => (
-                                <option key={cat._id} value={cat._id}>
-                                    {cat.name}
+                                <option key={cat._id} value={cat?._id}>
+                                    {cat?.name}
                                 </option>
                             ))}
                         </select>
@@ -166,17 +166,17 @@ const AdminOffering: React.FC = () => {
                                         </tr>
                                     ) : (
                                         offerings.map((offering) => (
-                                            <tr key={offering._id} className="hover:bg-gray-50 transition">
+                                            <tr key={offering?._id} className="hover:bg-gray-50 transition">
                                                 <td className="px-6 py-4">
                                                     <div className="flex items-center space-x-4">
                                                         <img
-                                                            src={offering.image}
-                                                            alt={offering.name}
+                                                            src={offering?.image}
+                                                            alt={offering?.name}
                                                             className="w-16 h-16 rounded-lg object-cover"
                                                         />
                                                         <div>
-                                                            <p className="font-semibold text-gray-900">{offering.name}</p>
-                                                            <p className="text-sm text-gray-500 line-clamp-1">{offering.description}</p>
+                                                            <p className="font-semibold text-gray-900">{offering?.name}</p>
+                                                            <p className="text-sm text-gray-500 line-clamp-1">{offering?.description}</p>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -189,12 +189,12 @@ const AdminOffering: React.FC = () => {
                                                 <td className="px-6 py-4">
                                                     <div className="flex items-center space-x-1 text-gray-900 font-semibold">
                                                         <DollarSign size={18} />
-                                                        <span>{offering.price}</span>
+                                                        <span>{offering?.price}</span>
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     <div className="flex flex-wrap gap-1">
-                                                        {offering.amenities.slice(0, 2).map((amenity, index) => (
+                                                        {offering?.amenities.slice(0, 2).map((amenity, index) => (
                                                             <span
                                                                 key={index}
                                                                 className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs"
@@ -202,9 +202,9 @@ const AdminOffering: React.FC = () => {
                                                                 {amenity}
                                                             </span>
                                                         ))}
-                                                        {offering.amenities.length > 2 && (
+                                                        {offering?.amenities.length > 2 && (
                                                             <span className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs">
-                                                                +{offering.amenities.length - 2}
+                                                                +{offering?.amenities.length - 2}
                                                             </span>
                                                         )}
                                                     </div>

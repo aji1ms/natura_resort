@@ -241,49 +241,49 @@ const BookingList: React.FC = () => {
                                         >
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <div className="text-sm font-semibold text-gray-900">
-                                                    #{booking._id.slice(-8)}
+                                                    #{booking?._id.slice(-8)}
                                                 </div>
                                                 <div className="text-sm text-gray-500">
-                                                    {formatDate(booking.createdAt)}
+                                                    {formatDate(booking?.createdAt)}
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4">
                                                 <div className="text-sm font-semibold text-gray-900">
-                                                    {booking.offeringId.name}
+                                                    {booking?.offeringId?.name}
                                                 </div>
                                                 <div className="text-sm text-gray-500">
-                                                    ${booking.offeringId.price} • {booking.guests} guest{booking.guests !== 1 ? 's' : ''}
+                                                    ${booking?.offeringId?.price} • {booking?.guests} guest{booking?.guests !== 1 ? 's' : ''}
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4">
                                                 <div className="text-sm font-semibold text-gray-900">
-                                                    {booking.name}
+                                                    {booking?.name}
                                                 </div>
                                                 <div className="text-sm text-gray-500">
-                                                    {booking.email}
+                                                    {booking?.email}
                                                 </div>
                                                 <div className="text-sm text-gray-500">
-                                                    {booking.phone}
+                                                    {booking?.phone}
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <div className="text-sm font-medium text-gray-900">
-                                                    {formatDate(booking.checkIn)}
+                                                    {formatDate(booking?.checkIn)}
                                                 </div>
                                                 <div className="text-sm text-gray-500">
-                                                    {formatDate(booking.checkOut)}
+                                                    {formatDate(booking?.checkOut)}
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                <span className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full ${getStatusBadgeClass(booking.status)}`}>
-                                                    {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
+                                                <span className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full ${getStatusBadgeClass(booking?.status)}`}>
+                                                    {booking.status.charAt(0).toUpperCase() + booking?.status.slice(1)}
                                                 </span>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <div className="flex items-center space-x-3">
                                                     <select
                                                         value={booking.status}
-                                                        onChange={(e) => handleStatusChange(booking._id, e.target.value)}
+                                                        onChange={(e) => handleStatusChange(booking?._id, e.target.value)}
                                                         disabled={formLoading}
                                                         className="text-sm border border-gray-300 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
                                                     >
@@ -292,7 +292,7 @@ const BookingList: React.FC = () => {
                                                         <option value="cancelled">Cancelled</option>
                                                     </select>
                                                     <button
-                                                        onClick={() => handleViewDetails(booking._id)}
+                                                        onClick={() => handleViewDetails(booking?._id)}
                                                         disabled={formLoading}
                                                         className="text-blue-600 hover:text-blue-800 font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
                                                     >

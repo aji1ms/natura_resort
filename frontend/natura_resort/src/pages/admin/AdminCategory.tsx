@@ -161,8 +161,8 @@ const AdminCategory: React.FC = () => {
 
                                         <div className="pt-4 border-t border-gray-200">
                                             <div className="flex items-center justify-between text-xs text-gray-500">
-                                                <span>Created: {formatDate(category.createdAt)}</span>
-                                                <span>Updated: {formatDate(category.updatedAt)}</span>
+                                                <span>Created: {formatDate(category?.createdAt)}</span>
+                                                <span>Updated: {formatDate(category?.updatedAt)}</span>
                                             </div>
                                         </div>
                                     </div>

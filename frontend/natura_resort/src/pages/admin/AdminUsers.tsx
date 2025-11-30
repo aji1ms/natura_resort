@@ -129,27 +129,27 @@ const AdminUsers: React.FC = () => {
                                         </tr>
                                     ) : (
                                         users.map((user) => (
-                                            <tr key={user._id} className="hover:bg-gray-50 transition">
+                                            <tr key={user?._id} className="hover:bg-gray-50 transition">
                                                 <td className="px-6 py-4">
                                                     <div className="flex items-center space-x-3">
                                                         <div className="bg-blue-100 text-blue-600 w-10 h-10 rounded-full flex items-center justify-center font-bold">
-                                                            {user.name.charAt(0).toUpperCase()}
+                                                            {user?.name.charAt(0).toUpperCase()}
                                                         </div>
                                                         <div>
-                                                            <p className="font-semibold text-gray-900">{user.name}</p>
+                                                            <p className="font-semibold text-gray-900">{user?.name}</p>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     <div className="flex items-center space-x-2 text-gray-700">
                                                         <Mail size={16} className="text-gray-400" />
-                                                        <span>{user.email}</span>
+                                                        <span>{user?.email}</span>
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     <div className="flex items-center space-x-2 text-gray-700">
                                                         <Phone size={16} className="text-gray-400" />
-                                                        <span>{user.phone}</span>
+                                                        <span>{user?.phone}</span>
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4">
@@ -168,7 +168,7 @@ const AdminUsers: React.FC = () => {
                                                 <td className="px-6 py-4">
                                                     <div className="flex items-center space-x-2 text-gray-700">
                                                         <Calendar size={16} className="text-gray-400" />
-                                                        <span>{formatDate(user.createdAt)}</span>
+                                                        <span>{formatDate(user?.createdAt)}</span>
                                                     </div>
                                                 </td>
                                             </tr>
