@@ -23,7 +23,6 @@ export const offerings = async (req: Request, res: Response): Promise<void> => {
         });
 
     } catch (error) {
-        console.error("Error fetching offerings:", error);
         res.status(500).json({ message: "Internal server error" });
     }
 };
@@ -49,7 +48,6 @@ export const getOfferingDetails = async (req: Request, res: Response): Promise<v
         });
 
     } catch (error) {
-        console.error("Error fetching offering details:", error);
         res.status(500).json({ message: "Internal server error" });
     }
 };

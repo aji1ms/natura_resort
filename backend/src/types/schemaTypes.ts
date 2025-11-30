@@ -1,5 +1,7 @@
 import { Document, Types } from "mongoose";
 
+// User Type
+
 export interface IUser extends Document {
     name: string;
     email: string;
@@ -9,12 +11,16 @@ export interface IUser extends Document {
     comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
+// Category Type
+
 export interface ICategory extends Document {
     name: string;
     description?: string;
     createdAt?: Date;
     updatedAt?: Date;
 }
+
+// Offering Type
 
 export interface IOffering extends Document {
     name: string;
@@ -26,6 +32,8 @@ export interface IOffering extends Document {
     createdAt?: Date;
     updatedAt?: Date;
 }
+
+// Booking Type
 
 export interface IBooking extends Document {
     userId?: Types.ObjectId;

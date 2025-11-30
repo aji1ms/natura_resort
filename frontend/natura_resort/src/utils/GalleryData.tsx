@@ -8,6 +8,30 @@ export type GalleryImage = {
     description: string;
 };
 
+export const galleryImg: GalleryImage[] = [
+    {
+        id: 1,
+        src: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80",
+        title: "Ocean View Suite",
+        category: "rooms",
+        description: "Luxurious suite with panoramic ocean views and private balcony"
+    },
+    {
+        id: 2,
+        src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80",
+        title: "Deluxe Pool Villa",
+        category: "rooms",
+        description: "Private villa with infinity pool overlooking the garden"
+    },
+    {
+        id: 3,
+        src: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=80",
+        title: "Beachfront Bungalow",
+        category: "rooms",
+        description: "Cozy bungalow with direct beach access"
+    },
+]
+
 export const galleryImages: GalleryImage[] = [
     {
         id: 1,

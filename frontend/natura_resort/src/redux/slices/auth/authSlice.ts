@@ -40,7 +40,6 @@ export const registerUser = createAsyncThunk(
                 { withCredentials: true }
             );
 
-            console.log(res.data);
             return res.data;
         } catch (error: any) {
             return rejectWithValue(error.response?.data?.message || "Registration failed")
@@ -95,7 +94,7 @@ export const logoutUser = createAsyncThunk(
                 {},
                 { withCredentials: true }
             );
-            console.log("Logout successful");
+
             return null;
         } catch (error: any) {
             return rejectWithValue(error.response?.data?.message || "Logout failed");

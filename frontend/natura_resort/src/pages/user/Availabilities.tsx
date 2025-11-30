@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../redux/store";
 import { fetchOfferings, type CategoryRef, type Offering } from "../../redux/slices/auth/offeringSlice";
+import { CategoryFilterShimmer, OfferingShimmer } from "../../components/shimmer/OfferingShimmer";
 
 type CategoryKey = "all" | "accommodation" | "adventure" | "wellness";
 
@@ -14,7 +15,7 @@ const AvailabilityPage: React.FC = () => {
     const [selectedFilter, setSelectedFilter] = useState<CategoryKey>("all");
 
     const dispatch = useDispatch<AppDispatch>();
-    const { list, loading, error } = useSelector((state: RootState) => state.offering);
+    const { list, loading } = useSelector((state: RootState) => state.offering);
 
     useEffect(() => {
         dispatch(fetchOfferings());
@@ -61,99 +62,118 @@ const AvailabilityPage: React.FC = () => {
             </div>
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                <section className="bg-white rounded-2xl shadow-lg p-6 mb-8">
-                    <h3 className="text-xl font-bold text-gray-800 mb-4">Filter by Category</h3>
+                {loading ? (
+                    <CategoryFilterShimmer />
+                ) : (
+                    <section className="bg-white rounded-2xl shadow-lg p-6 mb-8">
+                        <h3 className="text-xl font-bold text-gray-800 mb-4">Filter by Category</h3>
 
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        {categories.map((cat) => {
-                            const Icon = cat.icon;
-                            const active = selectedFilter === cat.key;
-                            return (
-                                <button
-                                    key={cat.key}
-                                    className={`p-4 rounded-xl border-2 transition-all border-gray-200 hover:border-gray-300 bg-white ${active ? "ring-2 ring-amber-300" : ""}`}
-                                    type="button"
-                                    onClick={() => setSelectedFilter(cat.key)}
-                                >
-                                    <Icon className="mx-auto mb-2 text-gray-500" size={32} />
-                                    <p className="font-semibold text-sm">{cat.label}</p>
-                                </button>
-                            );
-                        })}
-                    </div>
-                </section>
-
-                {loading && (
-                    <div className="text-center py-16">
-                        <div className="inline-flex items-center space-x-2">
-                            <span className="loader" /> 
-                            <span>Loading offerings...</span>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {categories.map((cat) => {
+                                const Icon = cat.icon;
+                                const active = selectedFilter === cat.key;
+                                return (
+                                    <button
+                                        key={cat.key}
+                                        className={`p-4 rounded-xl border-2 transition-all border-gray-200 hover:border-gray-300 bg-white ${active ? "ring-2 ring-amber-300" : ""}`}
+                                        type="button"
+                                        onClick={() => setSelectedFilter(cat.key)}
+                                    >
+                                        <Icon className="mx-auto mb-2 text-gray-500" size={32} />
+                                        <p className="font-semibold text-sm">{cat.label}</p>
+                                    </button>
+                                );
+                            })}
                         </div>
-                    </div>
+                    </section>
                 )}
 
-                {!loading && !error && filtered.length === 0 && (
-                    <div className="text-center py-12 text-gray-600">
-                        No offerings found for selected category.
-                    </div>
-                )}
-
+                {/* Offerings Grid */}
                 <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-                    {filtered.map((item) => {
-                        const categoryKey = getCategoryKey(item);
-                        const category = categories.find(cat => cat.key === categoryKey);
-                        const badgeColor = getBadgeColor(category?.color || "gray");
-
-                        return (
-                            <article
-                                key={item._id}
-                                className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all transform hover:-translate-y-1"
-                            >
-                                <div className="relative h-48 overflow-hidden bg-gray-200">
-                                    <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
-                                    <div className={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-semibold flex items-center space-x-2 ${badgeColor}`}>
-                                        <span className="capitalize">{category?.label || categoryKey}</span>
+                    {loading ? (
+                        [...Array(3)].map((_, index) => (
+                            <OfferingShimmer key={index} />
+                        ))
+                    ) : (
+                        <>
+                            {filtered.length === 0 ? (
+                                <div className="col-span-full text-center py-12 text-gray-600">
+                                    <div className="flex flex-col items-center">
+                                        <Hotel className="w-16 h-16 text-gray-400 mb-4" />
+                                        <p className="text-lg font-medium text-gray-900 mb-2">
+                                            No offerings found
+                                        </p>
+                                        <p className="text-gray-500">
+                                            {selectedFilter !== 'all'
+                                                ? `No ${selectedFilter} offerings available`
+                                                : 'No offerings available at the moment'
+                                            }
+                                        </p>
                                     </div>
                                 </div>
+                            ) : (
+                                filtered.map((item) => {
+                                    const categoryKey = getCategoryKey(item);
+                                    const category = categories.find(cat => cat.key === categoryKey);
+                                    const badgeColor = getBadgeColor(category?.color || "gray");
 
-                                <div className="p-5">
-                                    <h3 className="text-lg font-bold text-gray-900 mb-2">{item.name}</h3>
-                                    <p className="text-gray-600 text-sm mb-4 line-clamp-2">{item.description}</p>
-
-                                    <div className="flex flex-wrap gap-2 mb-4">
-                                        {item.amenities?.slice(0, 3).map((amenity, index) => (
-                                            <span key={index} className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full">
-                                                {amenity}
-                                            </span>
-                                        ))}
-                                        {item.amenities && item.amenities.length > 3 && (
-                                            <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full">
-                                                +{item.amenities.length - 3} more
-                                            </span>
-                                        )}
-                                    </div>
-
-                                    <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                                        <div>
-                                            <div className="flex items-center text-2xl font-bold text-gray-900">
-                                                <DollarSign size={20} />
-                                                <span className="ml-2">{item.price}</span>
-                                            </div>
-                                            <p className="text-xs text-gray-500">
-                                                {categoryKey === "accommodation" ? "per night" : "per person"}
-                                            </p>
-                                        </div>
-                                        <button
-                                            onClick={() => navigate(`/availability/${item._id}`)}
-                                            className="px-6 py-2 rounded-full font-semibold transition bg-amber-500 hover:bg-amber-600 text-white"
+                                    return (
+                                        <article
+                                            key={item._id}
+                                            className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all transform hover:-translate-y-1"
                                         >
-                                            Book Now
-                                        </button>
-                                    </div>
-                                </div>
-                            </article>
-                        );
-                    })}
+                                            <div className="relative h-48 overflow-hidden bg-gray-200">
+                                                <img
+                                                    src={item.image}
+                                                    alt={item.name}
+                                                    className="w-full h-full object-cover"
+                                                />
+                                                <div className={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-semibold flex items-center space-x-2 ${badgeColor}`}>
+                                                    <span className="capitalize">{category?.label || categoryKey}</span>
+                                                </div>
+                                            </div>
+
+                                            <div className="p-5">
+                                                <h3 className="text-lg font-bold text-gray-900 mb-2">{item.name}</h3>
+                                                <p className="text-gray-600 text-sm mb-4 line-clamp-2">{item.description}</p>
+
+                                                <div className="flex flex-wrap gap-2 mb-4">
+                                                    {item.amenities?.slice(0, 3).map((amenity, index) => (
+                                                        <span key={index} className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full">
+                                                            {amenity}
+                                                        </span>
+                                                    ))}
+                                                    {item.amenities && item.amenities.length > 3 && (
+                                                        <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full">
+                                                            +{item.amenities.length - 3} more
+                                                        </span>
+                                                    )}
+                                                </div>
+
+                                                <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                                                    <div>
+                                                        <div className="flex items-center text-2xl font-bold text-gray-900">
+                                                            <DollarSign size={20} />
+                                                            <span className="ml-2">{item.price}</span>
+                                                        </div>
+                                                        <p className="text-xs text-gray-500">
+                                                            {categoryKey === "accommodation" ? "per night" : "per person"}
+                                                        </p>
+                                                    </div>
+                                                    <button
+                                                        onClick={() => navigate(`/availability/${item._id}`)}
+                                                        className="px-6 py-2 rounded-full font-semibold transition bg-amber-500 hover:bg-amber-600 text-white"
+                                                    >
+                                                        Book Now
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    );
+                                })
+                            )}
+                        </>
+                    )}
                 </section>
             </main>
 

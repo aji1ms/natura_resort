@@ -3,11 +3,9 @@ import cors from "cors";
 require("dotenv").config();
 import cookieParser from "cookie-parser";
 const connectDB = require("./config/db");
-// User Routes
 import authRoute from "./routes/user/userRoutes";
 import userOfferingRoute from "./routes/user/offeringRoutes";
 import bookingRoute from "./routes/user/bookingRoutes";
-// Admin Routes
 import adminRoute from "./routes/admin/adminRoutes";
 import adminUserRoute from "./routes/admin/userRoutes";
 import categoryRoute from "./routes/admin/categoryRoutes";
@@ -34,13 +32,13 @@ app.use(cookieParser());
 
 connectDB();
 
-// Auth
+// Auth Routes
 
 app.use("/api/auth", authRoute);
 app.use("/api/auth/offering", userOfferingRoute);
 app.use("/api/auth/booking", bookingRoute);
 
-// Admin
+// Admin Routes
 
 app.use("/api/admin", adminRoute);
 app.use("/api/admin/user", adminUserRoute);

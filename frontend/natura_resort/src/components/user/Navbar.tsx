@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router";
 import type { AppDispatch } from "../../redux/store";
 import { logoutUser } from "../../redux/slices/auth/authSlice";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -15,7 +16,7 @@ const Navbar = () => {
             await dispatch(logoutUser()).unwrap();
             navigate("/login");
         } catch (err) {
-            console.error("Logout failed", err);
+            toast.error("Logout failed!");
         }
     };
     return (

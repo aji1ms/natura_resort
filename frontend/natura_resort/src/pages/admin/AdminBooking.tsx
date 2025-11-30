@@ -14,6 +14,7 @@ import type { AppDispatch, RootState } from '../../redux/store';
 import { SIDE_ADMIN_DATA } from '../../utils/Data';
 import Sidemenu from '../../components/admin/Sidemenu';
 import { useDebounce } from '../../hooks/useDebounce';
+import toast from 'react-hot-toast';
 
 const BookingList: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -41,7 +42,7 @@ const BookingList: React.FC = () => {
         try {
             await dispatch(updateBookingStatus({ id: bookingId, status: newStatus })).unwrap();
         } catch (error) {
-            console.error('Failed to update status:', error);
+            toast.error('Failed to update status!');
         }
     };
 
@@ -53,7 +54,7 @@ const BookingList: React.FC = () => {
                 dispatch(openBookingModal(booking));
             }
         } catch (error) {
-            console.error('Failed to fetch booking details:', error);
+            toast.error('Failed to fetch booking details!');
         }
     };
 

@@ -66,7 +66,6 @@ export const logoutAdmin = createAsyncThunk(
                 { withCredentials: true }
             );
 
-            console.log("Logout successful");
             return null;
         } catch (error: any) {
             return rejectWithValue(error.response?.data?.message || "Logout failed");

@@ -84,7 +84,6 @@ export const createBooking = async (req: Request, res: Response): Promise<void> 
         });
 
     } catch (error) {
-        console.error("Error creating booking:", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }
@@ -125,7 +124,6 @@ export const getUserBookings = async (req: Request, res: Response): Promise<void
             data: bookings
         });
     } catch (error) {
-        console.error("Error fetching user bookings:", error);
         res.status(500).json({ message: "Internal server error" });
     }
 };
@@ -170,7 +168,6 @@ export const getBookingDetails = async (req: Request, res: Response): Promise<vo
         });
 
     } catch (error) {
-        console.error("Error fetching booking details:", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }

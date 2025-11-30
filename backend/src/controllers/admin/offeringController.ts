@@ -132,7 +132,6 @@ export const deleteOffering = async (req: Request, res: Response): Promise<void>
 
         res.status(200).json({ message: "Offering deleted successfully!" });
     } catch (error) {
-        console.error("Error deleting offering:", error);
         res.status(500).json({ message: "Internal server error" });
     }
 };
@@ -163,7 +162,6 @@ export const getAllOfferings = async (req: Request, res: Response): Promise<void
         });
 
     } catch (error) {
-        console.error("Error fetching offerings:", error);
         res.status(500).json({ message: "Internal server error" });
     }
 };

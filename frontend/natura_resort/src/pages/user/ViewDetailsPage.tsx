@@ -6,11 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../redux/store";
 import { fetchOfferingDetails } from "../../redux/slices/auth/offeringSlice";
 import BookingModal from "../../components/modal/BookingModal";
+import { AmenitiesShimmer, BackButtonShimmer, BookingCardShimmer, DescriptionShimmer, ImageShimmer, TitleSectionShimmer } from "../../components/shimmer/OfferingDetailShimmer";
 
 const ViewDetailsPage: React.FC = () => {
     const { id } = useParams();
     const dispatch = useDispatch<AppDispatch>();
-    const { selected } = useSelector((state: RootState) => state.offering);
+    const { selected, loading } = useSelector((state: RootState) => state.offering);
     const [showBookingModal, setShowBookingModal] = useState(false);
 
     useEffect(() => {
@@ -27,6 +28,31 @@ const ViewDetailsPage: React.FC = () => {
         setShowBookingModal(false);
     };
 
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-gray-50">
+                <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                    <BackButtonShimmer />
+
+                    <div className="grid lg:grid-cols-3 gap-8">
+                        <div className="lg:col-span-2 space-y-6">
+                            <ImageShimmer />
+                            <TitleSectionShimmer />
+                            <DescriptionShimmer />
+                            <AmenitiesShimmer />
+                        </div>
+
+                        {/* Right Column - Booking Card */}
+                        <div className="lg:col-span-1">
+                            <BookingCardShimmer />
+                        </div>
+                    </div>
+                </main>
+                <Footer />
+            </div>
+        );
+    }
+    
     if (!selected) {
         return (
             <div className="min-h-screen bg-gray-50 flex justify-center items-center">
