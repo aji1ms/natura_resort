@@ -19,6 +19,7 @@ import AdminUsers from "./pages/admin/AdminUsers"
 import AdminCategory from "./pages/admin/AdminCategory"
 import AdminOffering from "./pages/admin/AdminOffering"
 import AdminBooking from "./pages/admin/AdminBooking"
+import BookingsPage from "./pages/user/BookingsPage"
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -45,6 +46,7 @@ const App = () => {
           <Route path="/availability/:id" element={<ViewDetailsPage />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/gallery" element={<GalleryPage />} />
+          <Route path="/bookings" element={<BookingsPage />} />
         </Route>
 
         <Route path="/admin" element={<AdminProtectedRoute />}>

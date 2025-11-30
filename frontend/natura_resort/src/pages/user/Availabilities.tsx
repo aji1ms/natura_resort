@@ -56,8 +56,7 @@ const AvailabilityPage: React.FC = () => {
     return (
         <div className="min-h-screen bg-gray-50">
             <Navbar />
-
-            <div className="relative h-24 bg-gray-900">
+            <div className="relative h-24 bg-purple-600">
                 <div className="absolute inset-0 flex items-center justify-center" />
             </div>
 

@@ -171,3 +171,65 @@ export const getBookingDetails = async (req: Request, res: Response): Promise<vo
         res.status(500).json({ message: "Internal server error" });
     }
 }
+
+// Cancel Booking
+
+export const cancelBooking = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const userId = req.user?._id;
+        const { bookingId } = req.params;
+
+        if (!userId) {
+            res.status(401).json({ message: "User not authenticated!" });
+            return;
+        }
+
+        const booking = await Booking.findOne({
+            _id: bookingId,
+            userId
+        });
+
+        if (!booking) {
+            res.status(404).json({ message: "Booking not found!" });
+            return;
+        }
+
+        if (booking.status === 'cancelled') {
+            res.status(400).json({ message: "Booking is already cancelled!" });
+            return;
+        }
+
+        const checkInDate = new Date(booking.checkIn);
+        const now = new Date();
+        const hoursDifference = (checkInDate.getTime() - now.getTime()) / (1000 * 3600);
+
+        if (hoursDifference < 24) {
+            res.status(400).json({
+                message: "Bookings can only be cancelled at least 24 hours before check-in!"
+            });
+            return;
+        }
+
+        booking.status = 'cancelled';
+        await booking.save();
+
+        await booking.populate([
+            {
+                path: 'offeringId',
+                select: 'name category description price image amenities',
+                populate: {
+                    path: 'category',
+                    select: 'name description'
+                }
+            }
+        ]);
+
+        res.status(200).json({
+            message: "Booking cancelled successfully!",
+            data: booking
+        });
+
+    } catch (error) {
+        res.status(500).json({ message: "Internal server error" });
+    }
+}

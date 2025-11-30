@@ -30,6 +30,7 @@ const Navbar = () => {
                         <Link to={"/services"} className="hover:text-amber-300 transition">Services</Link>
                         <Link to={"/gallery"} className="hover:text-amber-300 transition">Gallery</Link>
                         <Link to={"/availability"} className="hover:text-amber-300 transition">Book Now</Link>
+                        <Link to={"/bookings"} className="hover:text-amber-300 transition">My Bookings</Link>
                         <button
                             onClick={handleLogout}
                             className="hover:text-amber-300 transition text-red-500"
@@ -53,6 +54,7 @@ const Navbar = () => {
                         <Link to={"/services"} className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Services</Link>
                         <Link to={"/gallery"} className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Gallery</Link>
                         <Link to={"/availability"} className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Book Now</Link>
+                        <Link to={"/bookings"} className="block px-4 py-2 text-gray-800 hover:bg-gray-100">My Bookings</Link>
                         <button
                             onClick={handleLogout}
                             className="block px-4 py-2 text-red-500 hover:bg-gray-100 w-full text-left"
