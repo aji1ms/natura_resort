@@ -28,10 +28,6 @@ const userSchema = new Schema<IUser>(
             required: true,
             minlength: 6,
         },
-        bookings: [{
-            type: Schema.Types.ObjectId,
-            ref: "Booking",
-        }],
     },
     { timestamps: true }
 );

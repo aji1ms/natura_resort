@@ -12,6 +12,7 @@ import adminRoute from "./routes/admin/adminRoutes";
 import adminUserRoute from "./routes/admin/userRoutes";
 import categoryRoute from "./routes/admin/categoryRoutes";
 import offeringRoute from "./routes/admin/offeringRoutes";
+import adminBookingRoute from "./routes/admin/adminBookingRoutes";
 
 const app = express();
 
@@ -44,6 +45,7 @@ app.use("/api/admin", adminRoute);
 app.use("/api/admin/user", adminUserRoute);
 app.use("/api/admin/category", categoryRoute);
 app.use("/api/admin/offering", offeringRoute);
+app.use("/api/admin/booking", adminBookingRoute);
 
 const PORT = process.env.PORT || 3006;
 app.listen(PORT, () => console.log("server running..."));

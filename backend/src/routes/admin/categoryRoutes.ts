@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.post("/add", authenticateUser(["admin"], "adminToken"), addCategory);
 router.post("/edit/:id", authenticateUser(["admin"], "adminToken"), editCategory);
-router.post("/delete/:id", authenticateUser(["admin"], "adminToken"), deleteCategory);
+router.delete("/delete/:id", authenticateUser(["admin"], "adminToken"), deleteCategory);
 router.get("/", authenticateUser(["admin"], "adminToken"), getAllCategories);
 
 export default router; 

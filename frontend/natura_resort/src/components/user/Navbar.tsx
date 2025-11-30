@@ -1,10 +1,23 @@
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router";
+import type { AppDispatch } from "../../redux/store";
+import { logoutUser } from "../../redux/slices/auth/authSlice";
 
 const Navbar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const navigate = useNavigate();
+    const dispatch = useDispatch<AppDispatch>();
+
+    const handleLogout = async () => {
+        try {
+            await dispatch(logoutUser()).unwrap();
+            navigate("/login");
+        } catch (err) {
+            console.error("Logout failed", err);
+        }
+    };
     return (
         <nav className="absolute top-0 left-0 right-0 z-50 bg-transparent">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -16,7 +29,12 @@ const Navbar = () => {
                         <Link to={"/services"} className="hover:text-amber-300 transition">Services</Link>
                         <Link to={"/gallery"} className="hover:text-amber-300 transition">Gallery</Link>
                         <Link to={"/availability"} className="hover:text-amber-300 transition">Book Now</Link>
-                        <Link to={""} className="hover:text-amber-300 transition text-red-500">Logout</Link>
+                        <button
+                            onClick={handleLogout}
+                            className="hover:text-amber-300 transition text-red-500"
+                        >
+                            Logout
+                        </button>
                     </div>
 
                     {/* Mobile Menu Button */}
@@ -34,7 +52,12 @@ const Navbar = () => {
                         <Link to={"/services"} className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Services</Link>
                         <Link to={"/gallery"} className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Gallery</Link>
                         <Link to={"/availability"} className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Book Now</Link>
-                        <Link to={""} className="block px-4 py-2 text-red-500 hover:bg-gray-100">Logout</Link>
+                        <button
+                            onClick={handleLogout}
+                            className="block px-4 py-2 text-red-500 hover:bg-gray-100 w-full text-left"
+                        >
+                            Logout
+                        </button>
                     </div>
                 )}
             </div>

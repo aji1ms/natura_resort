@@ -1,36 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Eye, EyeOff, User, Mail, Phone, Lock } from "lucide-react";
+import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../../redux/store";
+import { validateEmail, validatePassword, validatePhone, validFullName } from "../../utils/helper";
+import { registerUser } from "../../redux/slices/auth/authSlice";
+import toast from "react-hot-toast";
 
 const SignupPage: React.FC = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch<AppDispatch>();
+    const { loading, error, user } = useSelector((state: RootState) => state.auth);
+
+    useEffect(() => {
+        if (user) navigate("/");
+    }, [user, navigate]);
+
     const [formData, setFormData] = useState({
         fullName: "",
-        email: "",
         phone: "",
+        email: "",
+        password: "",
+        confirmPassword: ""
+    });
+
+    const [errors, setErrors] = useState({
+        fullName: "",
+        phone: "",
+        email: "",
         password: "",
         confirmPassword: ""
     });
 
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const [errors, setErrors] = useState({
-        fullName: "",
-        email: "",
-        phone: "",
-        password: "",
-        confirmPassword: ""
-    });
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
-
-        setErrors({
-            ...errors,
-            [name]: ""
-        });
+        setFormData(prev => ({ ...prev, [name]: value }));
+        setErrors(prev => ({ ...prev, [name]: "" }));
     };
 
     const togglePasswordVisibility = () => {
@@ -41,8 +49,37 @@ const SignupPage: React.FC = () => {
         setShowConfirmPassword(!showConfirmPassword);
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!validFullName(formData.fullName)) {
+            setErrors(prev => ({ ...prev, fullName: "Name should contain only letters and spaces" }));
+            return;
+        }
+        if (!validateEmail(formData.email)) {
+            setErrors(prev => ({ ...prev, email: "Please enter a valid email address" }));
+            return;
+        }
+        if (!validatePhone(formData.phone)) {
+            setErrors(prev => ({ ...prev, phone: "Invalid phone number" }));
+            return;
+        }
+        if (!validatePassword(formData.password)) {
+            setErrors(prev => ({ ...prev, password: "Password must be at least 6 characters with letters and numbers" }));
+            return;
+        }
+        if (formData.password !== formData.confirmPassword) {
+            setErrors(prev => ({ ...prev, confirmPassword: "Passwords do not match" }));
+            return;
+        }
+
+        try {
+            const resultAction = await dispatch(registerUser({ name: formData.fullName, email: formData.email, phone: formData.phone, password: formData.password })).unwrap();
+            toast.success(`Welcome ${resultAction.name}! Registration successful.`, { duration: 2000 });
+            navigate("/");
+        } catch (err: any) {
+            toast.error(err || "Signup failed");
+        }
     };
 
     return (
@@ -75,8 +112,8 @@ const SignupPage: React.FC = () => {
                                     onChange={handleInputChange}
                                     placeholder="John Doe"
                                     className={`w-full pl-10 pr-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition ${errors.fullName
-                                            ? "border-red-500 focus:ring-red-200"
-                                            : "border-gray-200 focus:border-amber-500 focus:ring-amber-200"
+                                        ? "border-red-500 focus:ring-red-200"
+                                        : "border-gray-200 focus:border-amber-500 focus:ring-amber-200"
                                         }`}
                                 />
                             </div>
@@ -101,8 +138,8 @@ const SignupPage: React.FC = () => {
                                     onChange={handleInputChange}
                                     placeholder="john@example.com"
                                     className={`w-full pl-10 pr-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition ${errors.email
-                                            ? "border-red-500 focus:ring-red-200"
-                                            : "border-gray-200 focus:border-amber-500 focus:ring-amber-200"
+                                        ? "border-red-500 focus:ring-red-200"
+                                        : "border-gray-200 focus:border-amber-500 focus:ring-amber-200"
                                         }`}
                                 />
                             </div>
@@ -127,8 +164,8 @@ const SignupPage: React.FC = () => {
                                     onChange={handleInputChange}
                                     placeholder="1234567890"
                                     className={`w-full pl-10 pr-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition ${errors.phone
-                                            ? "border-red-500 focus:ring-red-200"
-                                            : "border-gray-200 focus:border-amber-500 focus:ring-amber-200"
+                                        ? "border-red-500 focus:ring-red-200"
+                                        : "border-gray-200 focus:border-amber-500 focus:ring-amber-200"
                                         }`}
                                 />
                             </div>
@@ -153,8 +190,8 @@ const SignupPage: React.FC = () => {
                                     onChange={handleInputChange}
                                     placeholder="••••••••"
                                     className={`w-full pl-10 pr-12 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition ${errors.password
-                                            ? "border-red-500 focus:ring-red-200"
-                                            : "border-gray-200 focus:border-amber-500 focus:ring-amber-200"
+                                        ? "border-red-500 focus:ring-red-200"
+                                        : "border-gray-200 focus:border-amber-500 focus:ring-amber-200"
                                         }`}
                                 />
                                 <button
@@ -190,8 +227,8 @@ const SignupPage: React.FC = () => {
                                     onChange={handleInputChange}
                                     placeholder="••••••••"
                                     className={`w-full pl-10 pr-12 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition ${errors.confirmPassword
-                                            ? "border-red-500 focus:ring-red-200"
-                                            : "border-gray-200 focus:border-amber-500 focus:ring-amber-200"
+                                        ? "border-red-500 focus:ring-red-200"
+                                        : "border-gray-200 focus:border-amber-500 focus:ring-amber-200"
                                         }`}
                                 />
                                 <button
@@ -209,6 +246,9 @@ const SignupPage: React.FC = () => {
                             {errors.confirmPassword && (
                                 <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>
                             )}
+                            {error && (
+                                <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>
+                            )}
                         </div>
 
                         <button
@@ -216,7 +256,14 @@ const SignupPage: React.FC = () => {
                             type="button"
                             className="w-full bg-amber-500 text-white py-3 rounded-lg font-bold text-lg hover:from-amber-600 hover:to-orange-600 transition transform hover:scale-105 shadow-lg"
                         >
-                            Create Account
+                            {loading ? (
+                                <div className="flex items-center justify-center">
+                                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                                    creating...
+                                </div>
+                            ) : (
+                                "Create Account"
+                            )}
                         </button>
                     </div>
 

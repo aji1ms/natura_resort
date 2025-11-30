@@ -6,7 +6,6 @@ export interface IUser extends Document {
     phone: string;
     isAdmin: boolean;
     password: string;
-    bookings: Types.ObjectId[];
     comparePassword(candidatePassword: string): Promise<boolean>;
 }
 

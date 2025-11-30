@@ -4,19 +4,19 @@ import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../redux/store";
 import { validateEmail, validatePassword } from "../../utils/helper";
-import { loginUser } from "../../redux/slices/auth/authSlice";
 import toast from "react-hot-toast";
+import { adminLogin } from "../../redux/slices/admin/adminAuthSlice";
 
-const LoginPage: React.FC = () => {
+const AdminLogin: React.FC = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
-    const { loading, error, user } = useSelector((state: RootState) => state.auth);
+    const { loading, error, admin } = useSelector((state: RootState) => state.adminAuth);
 
     useEffect(() => {
-        if (user) {
-            navigate("/");
+        if (admin) {
+            navigate("/admin");
         }
-    }, [user, navigate])
+    }, [admin, navigate])
 
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -41,7 +41,7 @@ const LoginPage: React.FC = () => {
             return;
         }
 
-        await dispatch(loginUser({ email, password })).unwrap();
+        await dispatch(adminLogin({ email, password })).unwrap();
         toast.success("Login successfull!", { duration: 2000 });
         setError("")
     };
@@ -53,7 +53,7 @@ const LoginPage: React.FC = () => {
                     <div className="inline-flex items-center justify-center w-16 h-16 bg-amber-500 rounded-full mb-4">
                         <LogIn className="text-white" size={32} />
                     </div>
-                    <h1 className="text-4xl font-bold text-gray-900 mb-2">Welcome Back</h1>
+                    <h1 className="text-4xl font-bold text-gray-900 mb-2">Admin Login</h1>
                     <p className="text-gray-600">Sign in to your Natura Resort account</p>
                 </div>
 
@@ -137,20 +137,10 @@ const LoginPage: React.FC = () => {
                             )}
                         </button>
                     </div>
-
-                    {/* Signup Link */}
-                    <div className="mt-6 text-center">
-                        <p className="text-gray-600">
-                            Don't have an account?{" "}
-                            <a href="/register" className="text-amber-600 font-semibold hover:text-amber-700 transition">
-                                Sign Up
-                            </a>
-                        </p>
-                    </div>
                 </div>
             </div>
         </div>
     );
 };
 
-export default LoginPage;
+export default AdminLogin;
