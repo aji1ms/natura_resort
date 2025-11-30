@@ -14,7 +14,6 @@ import { Toaster } from "react-hot-toast"
 import UserProtectedRoutes from "./helper/UserProtectedRoute"
 import AdminProtectedRoute from "./helper/AdminProtectedRoute"
 import AdminLogin from "./pages/admin/AdminLogin"
-import Dashboard from "./pages/admin/Dashboard"
 import { fetchAdmin } from "./redux/slices/admin/adminAuthSlice"
 import AdminUsers from "./pages/admin/AdminUsers"
 import AdminCategory from "./pages/admin/AdminCategory"
@@ -49,7 +48,6 @@ const App = () => {
         </Route>
 
         <Route path="/admin" element={<AdminProtectedRoute />}>
-          <Route index element={<Dashboard />} />
           <Route path="users" element={<AdminUsers />} />
           <Route path="category" element={<AdminCategory />} />
           <Route path="offering" element={<AdminOffering />} />

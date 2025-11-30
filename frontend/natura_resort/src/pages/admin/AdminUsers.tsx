@@ -45,7 +45,7 @@ const AdminUsers: React.FC = () => {
         <div className="flex min-h-screen bg-gray-50">
             <SideMenu menuData={SIDE_ADMIN_DATA} isFixed={true} />
 
-            <main className="flex-1 p-8 ml-64 md:ml-80">
+            <main className="flex-1 p-6 md:ml-80 w-full">
                 <div className="mb-8">
                     <h1 className="text-3xl font-bold text-gray-900 mb-2">Users Management</h1>
                     <p className="text-gray-600">View and manage all registered users</p>

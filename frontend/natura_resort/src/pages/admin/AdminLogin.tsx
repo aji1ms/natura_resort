@@ -14,7 +14,7 @@ const AdminLogin: React.FC = () => {
 
     useEffect(() => {
         if (admin) {
-            navigate("/admin");
+            navigate("/admin/users");
         }
     }, [admin, navigate])
 

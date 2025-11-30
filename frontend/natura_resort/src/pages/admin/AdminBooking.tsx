@@ -15,6 +15,8 @@ import { SIDE_ADMIN_DATA } from '../../utils/Data';
 import Sidemenu from '../../components/admin/Sidemenu';
 import { useDebounce } from '../../hooks/useDebounce';
 import toast from 'react-hot-toast';
+import StatsCard from '../../components/admin/StatsCard';
+import { Ticket } from 'lucide-react';
 
 const BookingList: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -86,11 +88,15 @@ const BookingList: React.FC = () => {
         );
     }
 
+    const totalPending = bookings.filter(item => item.status === 'pending')
+    const totalCancelled = bookings.filter(item => item.status === 'cancelled')
+    const totalConfirmed = bookings.filter(item => item.status === 'confirmed')
+
     return (
         <div className="flex min-h-screen bg-gray-50">
             <Sidemenu menuData={SIDE_ADMIN_DATA} isFixed={true} />
 
-            <main className="flex-1 p-8 md:ml-80">
+            <main className="flex-1 p-6 md:ml-80 w-full">
                 {/* Header */}
                 <div className="mb-8">
                     <h1 className="text-3xl font-bold text-gray-900 mb-2">
@@ -99,6 +105,29 @@ const BookingList: React.FC = () => {
                     <p className="text-gray-600">
                         Manage all bookings and their status
                     </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <StatsCard
+                        title="Total Booking"
+                        value={bookings.length}
+                        icon={<Ticket className="text-blue-600" size={28} />}
+                    />
+                    <StatsCard
+                        title="Pending"
+                        value={totalPending.length}
+                        icon={<Ticket className="text-yellow-600" size={28} />}
+                    />
+                    <StatsCard
+                        title="Cancelled"
+                        value={totalCancelled.length}
+                        icon={<Ticket className="text-red-600" size={28} />}
+                    />
+                    <StatsCard
+                        title="Confirmed"
+                        value={totalConfirmed.length}
+                        icon={<Ticket className="text-green-600" size={28} />}
+                    />
                 </div>
 
                 {/* Search and Filter Section */}

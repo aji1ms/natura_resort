@@ -67,7 +67,7 @@ const AdminCategory: React.FC = () => {
         <div className="flex min-h-screen bg-gray-50">
             <SideMenu menuData={SIDE_ADMIN_DATA} isFixed={true} />
 
-            <main className="flex-1 p-8 md:ml-80">
+            <main className="flex-1 p-6 md:ml-80 w-full">
                 <div className="flex items-center justify-between mb-8">
                     <div>
                         <h1 className="text-3xl font-bold text-gray-900 mb-2">Categories Management</h1>

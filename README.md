@@ -292,11 +292,6 @@ npm install
 
 ```
 
-### Environment Variables for Production
-Update `.env` files with production URLs and credentials.
-
----
-
 ## 🌐 Live Demo
 
 **🔗 Frontend:** [https://natura-resort.vercel.app](https://natura-resort.vercel.app)  
@@ -305,8 +300,8 @@ Update `.env` files with production URLs and credentials.
 ### Demo Credentials
 
 **Admin Account:**
-- Email: `ajmal@gmail.com`
-- Password: `ajmal@123`
+- Email: `admin@gmail.com`
+- Password: `admin@123`
 
 ---
 
@@ -322,8 +317,6 @@ Full Stack Developer
 🌐 Portfolio: [ajims.dev](https://ajims.info)
 
 ---
-
-<div align="center">
 
 **⭐ Star this repo if you find it helpful!**
 
