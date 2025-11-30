@@ -183,7 +183,7 @@ const AdminOffering: React.FC = () => {
                                                 <td className="px-6 py-4">
                                                     <span className="inline-flex items-center space-x-1 bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">
                                                         <Tag size={14} />
-                                                        <span>{offering.category.name}</span>
+                                                        <span>{offering?.category?.name}</span>
                                                     </span>
                                                 </td>
                                                 <td className="px-6 py-4">
