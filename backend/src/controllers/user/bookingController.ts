@@ -100,7 +100,7 @@ export const getUserBookings = async (req: Request, res: Response): Promise<void
 
         const { status } = req.query;
 
-        const filter: any = {};
+        const filter: any = { userId };
 
         if (status && ['pending', 'confirmed', 'cancelled'].includes(status as string)) {
             filter.status = status;
