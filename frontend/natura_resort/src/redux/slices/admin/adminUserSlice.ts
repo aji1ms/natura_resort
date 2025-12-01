@@ -80,7 +80,6 @@ const adminUsersSlice = createSlice({
                 state.users = action.payload.data;
                 state.totalUsers = action.payload.totalUsers;
 
-                // Calculate stats
                 const admins = action.payload.data.filter((user: IUser) => user.isAdmin).length;
                 const regularUsers = action.payload.data.filter((user: IUser) => !user.isAdmin).length;
 

@@ -175,6 +175,7 @@ const adminCategorySlice = createSlice({
                 state.categories = [];
                 state.totalCategories = 0;
             })
+            
             // Create Category
             .addCase(createCategory.pending, (state) => {
                 state.formLoading = true;
@@ -192,6 +193,7 @@ const adminCategorySlice = createSlice({
                 state.formLoading = false;
                 state.formError = action.payload as string;
             })
+
             // Update Category
             .addCase(updateCategory.pending, (state) => {
                 state.formLoading = true;
@@ -211,6 +213,7 @@ const adminCategorySlice = createSlice({
                 state.formLoading = false;
                 state.formError = action.payload as string;
             })
+
             // Delete Category
             .addCase(deleteCategory.fulfilled, (state, action) => {
                 state.categories = state.categories.filter(cat => cat._id !== action.payload);

@@ -215,12 +215,10 @@ const bookingSlice = createSlice({
             })
             .addCase(cancelBooking.fulfilled, (state, action) => {
                 state.cancelLoading = false;
-                // Update the booking in the list
                 const index = state.bookings.findIndex(booking => booking._id === action.payload._id);
                 if (index !== -1) {
                     state.bookings[index] = action.payload;
                 }
-                // Update current booking if it's the same
                 if (state.currentBooking && state.currentBooking._id === action.payload._id) {
                     state.currentBooking = action.payload;
                 }
